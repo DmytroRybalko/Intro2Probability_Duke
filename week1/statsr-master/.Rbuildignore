@@ -1,0 +1,7 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+.travis.yml
+orig_data
+.Rhistory
+^README\.Rmd$
+^README-.*\.png$

@@ -207,7 +207,7 @@ variable that comes after me".
 
 ```{r extract-counts-of-girls-born}
 # type your code for the Question 2 here, and Knit
-
+arbuthnot$girls
 ```
 
 Notice that the way R has printed these data is different. When we looked at the
@@ -352,7 +352,12 @@ do you see?
 
 ```{r plot-proportion-of-boys-over-time}
 # type your code for the Exercise here, and Knit
+arbuthnot <- arbuthnot %>%
+  mutate(boys_prop = boys / total)
 
+ggplot(data = arbuthnot, aes(x = year, y = boys_prop)) +
+    geom_line() +
+    geom_point()
 ```
 
 Finally, in addition to simple mathematical operators like subtraction and 
@@ -401,7 +406,7 @@ your workspace.
 
 ```{r variables-in-present}
 # type your code for Question 4 here, and Knit
-
+dim(present)
 ```
 
 <div id="exercise">
@@ -411,7 +416,7 @@ function and `present$year` as its argument.
 
 ```{r years-in-present-data}
 # type your code for Exercise here, and Knit
-
+range(present$year)
 ```
 
 5. Calculate the total number of births for each year and store these values in a new 
@@ -427,7 +432,16 @@ decreased over time.
 
 ```{r prop-boys-over-time}
 # type your code for Question 5 here, and Knit
+present <- present %>%
+    mutate(total = boys + girls)
 
+present$prop_boys <- present$boys / present$total
+
+ggplot(data = present, aes(x = year, y = prop_boys)) +
+    geom_line() +
+    geom_point()
+
+FALSE
 ```
 
 
@@ -442,7 +456,9 @@ variable which of the following statements is true?
 
 ```{r more-boys-per-year}
 # type your code for Question 6 here, and Knit
-
+present <- present %>%
+    mutate(more_boys = boys > girls)
+"Every year there are more boys born than girls."
 ```
 
 
@@ -457,7 +473,14 @@ variable which of the following statements is true?
 
 ```{r prop-boy-girl-over-time}
 # type your code for Question 7 here, and Knit
+present <- present %>%
+    mutate(prop_boy_girl = boys / girls)
 
+ggplot(data = present, aes(x = year, y = prop_boy_girl)) +
+    geom_line() +
+    geom_point()
+
+"There is initially a decrease in the boy-to-girl ratio, and then an increase between 1960 and 1970, followed by a decrease."
 ```
 
 8. In what year did we see the most total number of births in the U.S.? *Hint:* Sort 
@@ -476,9 +499,10 @@ descending order).
 ```{r most-total-births}
 # type your code for Question 8 here
 # sample code is provided below, edit as necessary, uncomment, and then Knit
-#present %>%
+present %>%
 #  mutate(total = ?) %>%
-#  arrange(desc(total))
+    arrange(desc(total))
+2007
 ```
 
 ## Resources for learning R and working in RStudio
